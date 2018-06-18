@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "6ea84820-dd80-410d-89c3-c5e4c7e2ad46",
+		"name": "CEABS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Fechamento",
+			"description": "",
+			"item": [
+				{
+					"name": "Instalação",
+					"description": "",
+					"item": [
+						{
+							"name": "ordensServicos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "solucoesTecnicasPossiveis",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "salvarSetupAtivacao",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ea08ed2d-3efc-48ec-837a-65a77d2c4c6a",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "ceabs@123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "homolog",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n  {\n    \"id_device\": 547207,\n    \"id_accessory_or_device\": 13,\n    \"id_local_installation\": 195,\n    \"id_reason_local_exchange\": 0,\n    \"port_number\": 8098,\n    \"type_port\": 0\n  }\n]"
+								},
+								"url": {
+									"raw": "https://outsystems-dev.ceabs.com.br/CEABS_AutoClosing/rest/AC/salvarSetupAtivacao?os=910&sequence=1&odometer=1000&customer_monitored_installation=true&id_product_solution=1448",
+									"protocol": "https",
+									"host": [
+										"outsystems-dev",
+										"ceabs",
+										"com",
+										"br"
+									],
+									"path": [
+										"CEABS_AutoClosing",
+										"rest",
+										"AC",
+										"salvarSetupAtivacao"
+									],
+									"query": [
+										{
+											"key": "os",
+											"value": "910"
+										},
+										{
+											"key": "sequence",
+											"value": "1"
+										},
+										{
+											"key": "odometer",
+											"value": "1000"
+										},
+										{
+											"key": "customer_monitored_installation",
+											"value": "true"
+										},
+										{
+											"key": "id_product_solution",
+											"value": "1448"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Retirada",
+					"description": "",
+					"item": [
+						{
+							"name": "ordensServicos",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "17a2661f-5cfe-4214-b047-936cf3763a7b",
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"var obj = jsonData.work_order_list[0].number;",
+											"var number = JSON.stringify(obj).split('.')[0];",
+											"var sequence = JSON.stringify(obj).split('.')[1]",
+											"postman.setEnvironmentVariable(\"number\",parseInt(number.remove('\"')));",
+											"postman.setEnvironmentVariable(\"sequence\",parseInt(sequence));",
+											"console.log(\"number\", environment[\"number\"]);   ",
+											"console.log(\"sequence\", environment[\"sequence\"]);"
+										]
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "ceabs@123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "homolog",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "https://outsystems-dev.ceabs.com.br/CEABS_AutoClosing/rest/AC/ordensServicos?create_date=2018-06-11&id_technical_representative=0",
+									"protocol": "https",
+									"host": [
+										"outsystems-dev",
+										"ceabs",
+										"com",
+										"br"
+									],
+									"path": [
+										"CEABS_AutoClosing",
+										"rest",
+										"AC",
+										"ordensServicos"
+									],
+									"query": [
+										{
+											"key": "create_date",
+											"value": "2018-06-11"
+										},
+										{
+											"key": "id_technical_representative",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fechamentoOrdemServicoRetirada",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Manutenção",
+					"description": "",
+					"item": [
+						{
+							"name": "ordensServicos",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "17a2661f-5cfe-4214-b047-936cf3763a7b",
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"var obj = jsonData.work_order_list[0].number;",
+											"var number = JSON.stringify(obj).split('.')[0];",
+											"var sequence = JSON.stringify(obj).split('.')[1]",
+											"postman.setEnvironmentVariable(\"number\",parseInt(number.remove('\"')));",
+											"postman.setEnvironmentVariable(\"sequence\",parseInt(sequence));",
+											"console.log(\"number\", environment[\"number\"]);   ",
+											"console.log(\"sequence\", environment[\"sequence\"]);"
+										]
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "ceabs@123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "homolog",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "https://outsystems-dev.ceabs.com.br/CEABS_AutoClosing/rest/AC/ordensServicos?create_date=2018-06-11&id_technical_representative=0",
+									"protocol": "https",
+									"host": [
+										"outsystems-dev",
+										"ceabs",
+										"com",
+										"br"
+									],
+									"path": [
+										"CEABS_AutoClosing",
+										"rest",
+										"AC",
+										"ordensServicos"
+									],
+									"query": [
+										{
+											"key": "create_date",
+											"value": "2018-06-11"
+										},
+										{
+											"key": "id_technical_representative",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ordemServicoItensManutencao",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}
